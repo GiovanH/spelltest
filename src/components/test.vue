@@ -3,15 +3,6 @@
 import Card from '@/components/card.vue'
 
 export default {
-  // data() {
-  //   return {
-  //     wordlist: undefined,
-  //     wordlist_default: ""
-  //   }
-  // },
-  // created() {
-  //   this.wordlist = {...this.wordlist_default, ...(this.Store.wordlist || {})}
-  // },
   components: {
     Card
   },
@@ -30,11 +21,15 @@ export default {
 <template>
   <section>
     <div v-for="word in wordlist" :key="word">
-      <Card :word="word" />
+      <Card :word="word.trim()" />
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-
+section {
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
 </style>

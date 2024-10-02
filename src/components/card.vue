@@ -1,7 +1,5 @@
 <script>
 
-'speechSynthesis' in window ? console.log("Web Speech API supported!") : console.log("Web Speech API not supported :-(")
-
 const synth = window.speechSynthesis
 
 export default {
@@ -16,12 +14,18 @@ export default {
   computed: {
     utterance() {
       return new SpeechSynthesisUtterance(this.word)
+    },
+    utteranceAnswer() {
+      const exploded = this.word.split('').join(' ')
+      return new SpeechSynthesisUtterance(`${this.word}. ${exploded}, ${this.word}.`)
     }
   },
   methods: {
     speak() {
-      // console.log('Speaking', this.utterance)
       synth.speak(this.utterance)
+    },
+    speakAnswer() {
+      synth.speak(this.utteranceAnswer)
     }
   }
 }
@@ -29,12 +33,18 @@ export default {
 </script>
 
 <template>
-  <section>
-    <span v-text="word" />
-    <input @focus="speak" v-model="entry">
-    <span v-text="word == entry" />
-    <button @click="speak">Speak</button>
-  </section>
+  <div class="window" style="margin: 16px; width: 250px">
+    <div class="title-bar">
+      <div class="title-bar-text"><span v-text="word" /></div>
+    </div>
+    <div class="window-body">
+      <input type="text" @focus="speak" @keydown.enter="speakAnswer" v-model="entry">
+    </div>
+    <div class="window-body">
+      <img src="@/assets/check-0.png" v-if="word == entry" />
+      <img src="@/assets/restrict-1.png" v-else />
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
