@@ -8,7 +8,7 @@ export default {
 <template>
   <section class="window">
     <div class="title-bar">
-      <div class="title-bar-text"><span v-text="word" /></div>
+      <div class="title-bar-text">Settings</div>
     </div>
     <div class="window-body">
       <label>

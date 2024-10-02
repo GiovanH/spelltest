@@ -9,10 +9,21 @@ export default {
   computed: {
     wordlist() {
       if (!this.Store.spelling_wordlist) return []
-      return this.Store.spelling_wordlist
+      let list = this.Store.spelling_wordlist
         .split('\n')
         .filter(Boolean)
+      list.sort(() => Math.random()-0.5)
+      return list
     }
+  },
+  data() {
+    return {
+      shuffled: []
+    }
+  },
+  created() {
+    // this.shuffled = [...this.wordlist]
+    // this.shuffled.sort(() => Math.random())
   }
 }
 

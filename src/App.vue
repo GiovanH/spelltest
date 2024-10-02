@@ -33,6 +33,17 @@ export default {
 
 <style>
 
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
 ul[role=tablist] {
   position: relative;
   margin: 0 0 -2px 0;
