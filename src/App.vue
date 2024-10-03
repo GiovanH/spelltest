@@ -5,7 +5,7 @@ import {Tabs, Tab} from 'vue3-tabs-component';
 import Settings from './components/settings.vue'
 import Test from './components/test.vue'
 
-import '98.css'
+// import 'xp.css'
 
 export default {
   components: {
