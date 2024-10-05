@@ -4,13 +4,15 @@ import {Tabs, Tab} from 'vue3-tabs-component';
 
 import Settings from './components/settings.vue'
 import Test from './components/test.vue'
+import Landing from './components/landing.vue'
 
 // import 'xp.css'
+import '98.css'
 
 export default {
   components: {
     Tabs, Tab,
-    Settings, Test
+    Settings, Test, Landing
   }
 }
 
@@ -18,13 +20,19 @@ export default {
 
 <template>
   <main class="window">
+    <div class="title-bar">
+      <div class="title-bar-text">Spelltest</div>
+    </div>
     <div class="window-body">
       <tabs role="tab" :options="{ storageKey: 'tabs-main', useUrlFragment: true }" >
-        <tab name="Settings" role="tab">
-          <Settings />
+        <tab name="Landing">
+          <Landing class="window"/>
+        </tab>
+        <tab name="Settings">
+          <Settings class="window"/>
         </tab>
         <tab name="Cards">
-          <Test />
+          <Test class="window"/>
         </tab>
       </tabs>
     </div>
@@ -33,6 +41,7 @@ export default {
 
 <style>
 
+/*Basic layout*/
 .row {
   display: flex;
   flex-direction: row;
@@ -44,6 +53,13 @@ export default {
   flex-shrink: 0;
 }
 
+/*Overrides for readability*/
+.title-bar, .window, button, input, label, option, select, table, textarea, ul.tree-view {
+    font-family: "MS Sans Serif", Arial, sans-serif;
+    font-size: 14px;
+}
+
+/*Tab component*/
 ul[role=tablist] {
   position: relative;
   margin: 0 0 -2px 0;

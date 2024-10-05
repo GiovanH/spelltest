@@ -105,13 +105,14 @@ export default {
 
 <style scoped lang="scss">
 fieldset.card {
-  min-width: 320px;
+  min-width: 240px + 120px;
   margin: 4px;
 }
 
 input[type=text] {
   font-size: 32px;
-  width: 225px;
+  width: 240px;
+  height: 42px;
 }
 
 img.check {

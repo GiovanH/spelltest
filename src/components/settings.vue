@@ -6,7 +6,7 @@ export default {
 </script>
 
 <template>
-  <section class="window">
+  <section style="max-width: 650px;">
     <!-- <div class="title-bar">
       <div class="title-bar-text">Settings</div>
     </div> -->
