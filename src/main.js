@@ -14,7 +14,7 @@ const reactivableStore = new Proxy(reactivableStoreData, {
   set(target, key, value) {
     if (value === undefined) {
       localStorage.removeItem(key)
-      try { delete reactivableStoreData[key] } catch {  }
+      try { delete reactivableStoreData[key] } catch { ; }
       return true
     } else {
       localStorage.setItem(key, JSON.stringify(value))
@@ -24,13 +24,14 @@ const reactivableStore = new Proxy(reactivableStoreData, {
   },
   get(target, key) {
     if (typeof key == 'symbol') return reactivableStoreData[key]
-  // try {
-    const v = localStorage.getItem(key)
-    return v === null ? v : JSON.parse(v)
-  // } catch (e) {
-  //   console.error(e)
-  //   return reactivableStoreData[key]
-  // }
+
+    // Load from localstore if not cached
+    if (reactivableStoreData[key] === undefined) {
+      const v = localStorage.getItem(key)
+      reactivableStoreData[key] = (v === null ? v : JSON.parse(v))
+    }
+
+    return reactivableStoreData[key]
   }
 })
 

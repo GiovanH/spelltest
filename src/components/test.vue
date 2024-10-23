@@ -7,23 +7,38 @@ export default {
     Card
   },
   computed: {
-    wordlist() {
-      if (!this.Store.spelling_wordlist) return []
-      let list = this.Store.spelling_wordlist
-        .split('\n')
-        .filter(Boolean)
-      list.sort(() => Math.random()-0.5)
-      return list
+  },
+  methods: {
+    resetAndShuffle() {
+      this.wordlist=[]
+      this.$nextTick(() => this.shuffle())
+
+      this.Store.test_state = {
+        wordlist: this.wordlist,
+        word_status: {}
+      };
+
+    },
+    shuffle() {
+      if (!this.Store.spelling_wordlist) {
+        this.wordlist = []
+      } else {
+        let list = this.Store.spelling_wordlist
+          .split('\n')
+          .filter(Boolean)
+        list.sort(() => Math.random()-0.5)
+        this.wordlist = list
+      }
+    },
     }
   },
   data() {
     return {
-      shuffled: []
+      wordlist: []
     }
   },
   created() {
-    // this.shuffled = [...this.wordlist]
-    // this.shuffled.sort(() => Math.random())
+    this.resetAndShuffle()
   }
 }
 
@@ -31,6 +46,11 @@ export default {
 
 <template>
   <section>
+    <div class="status-bar">
+      <p class="status-bar-field">
+        <button @click="resetAndShuffle" tabindex="-1">Reset &amp; Shuffle</button>
+      </p>
+    </div>
 
     <section class="test">
       <div class="window" style="margin: 16px; width: 250px" v-if="wordlist.length < 1">
@@ -46,8 +66,8 @@ export default {
           </div>
         </div>
       </div>
-      <div class="test" v-for="word in wordlist" :key="word" v-else>
         <Card :word="word.trim()" />
+      <div class="testcard" v-for="word in wordlist" :key="word" v-else>
       </div>
     </section>
   </section>
@@ -59,5 +79,12 @@ export default {
   display: flex;
   max-width: 100%;
   flex-wrap: wrap;
+}
+
+.testcard {
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  flex-grow: 1;
 }
 </style>

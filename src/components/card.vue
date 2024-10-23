@@ -107,6 +107,11 @@ export default {
 fieldset.card {
   min-width: 240px + 120px;
   margin: 4px;
+  flex-grow: 1;
+}
+
+button {
+  padding-bottom: 2px;
 }
 
 input[type=text] {
