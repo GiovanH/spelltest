@@ -13,7 +13,7 @@ export default {
       </div> -->
       <div class="window-body col">
         <div>
-          <h2>Hello!</h2>
+          <h3>Hello!</h3>
           <p>This is a very simple flashcard app that uses native web browser text-to-speach to quiz you on a wordlist you provide.</p>
           <p>First, open the Settings tab and input the words you want to study, one word per line. (Your browser will remember your list.)</p>
           <p>After that, switch to the Cards tab to quiz yourself. Each card will read the word out loud when you focus on the textbox. If your answer is correct, you'll get a happy icon. If your answer is wrong, you'll get a bad icon. Any card you answer wrong will also be marked for study, even after you correct your answer.</p>

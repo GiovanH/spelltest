@@ -2,43 +2,56 @@
 
 import Card from '@/components/card.vue'
 
+import { useStorage } from '@vueuse/core'
+
 export default {
+  data() {
+    return {
+      wordlist: [],
+      listDirty: false
+    }
+  },
   components: {
     Card
   },
   computed: {
   },
-  methods: {
-    resetAndShuffle() {
-      this.wordlist=[]
-      this.$nextTick(() => this.shuffle())
-
-      this.Store.test_state = {
-        wordlist: this.wordlist,
-        word_status: {}
-      };
-
-    },
-    shuffle() {
-      if (!this.Store.spelling_wordlist) {
-        this.wordlist = []
-      } else {
-        let list = this.Store.spelling_wordlist
-          .split('\n')
-          .filter(Boolean)
-        list.sort(() => Math.random()-0.5)
-        this.wordlist = list
-      }
-    },
+  watch: {
+    'Store.spelling_wordlist'() {
+      this.listDirty = true;
     }
   },
-  data() {
-    return {
-      wordlist: []
+  methods: {
+    resetAndLoadAndShuffle() {
+      this.wordlist=[]
+
+      this.$nextTick(() => {
+        this.loadList()
+        this.shuffle()
+      })
+
+    },
+    loadList() {
+      this.wordlist = this.Store.spelling_wordlist
+        .split('\n')
+        .filter(Boolean)
+
+      this.Store.test_state_wordlist = this.wordlist;
+      this.Store.test_state_word_status = {};
+
+      this.listDirty = false
+    },
+    shuffle() {
+      let list = this.wordlist
+      list.sort(() => Math.random()-0.5)
+      this.wordlist = list
+    },
+    cardUpdateCallback(card, status){
+      this.Store.test_state_word_status[card.word] = status
     }
   },
   created() {
-    this.resetAndShuffle()
+    this.resetAndLoadAndShuffle()
   }
 }
 
@@ -48,7 +61,7 @@ export default {
   <section>
     <div class="status-bar">
       <p class="status-bar-field">
-        <button @click="resetAndShuffle" tabindex="-1">Reset &amp; Shuffle</button>
+        <button @click="resetAndLoadAndShuffle" tabindex="-1">Reset &amp; Shuffle</button>
       </p>
     </div>
 
@@ -66,8 +79,8 @@ export default {
           </div>
         </div>
       </div>
-        <Card :word="word.trim()" />
       <div class="testcard" v-for="word in wordlist" :key="word" v-else>
+        <Card :word="word.trim()" @update="cardUpdateCallback" />
       </div>
     </section>
   </section>

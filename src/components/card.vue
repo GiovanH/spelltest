@@ -31,6 +31,22 @@ export default {
       utterance.addEventListener('end', () => {this.answer_speaking = false})
       return utterance
     },
+    correct() {
+      return (this.word == this.entry)
+    },
+    status() {
+      if (this.correct) {
+        if (this.ever_wrong) {
+          return "Corrected"
+        } else {
+          return "Perfect"
+        }
+      } else if (this.is_attempt) {
+        return "Incorrect"
+      } else {
+        return "Unanswered"
+      }
+    },
     is_attempt() {
       if (this.entry.length < this.word.length - 2) return false
       if (this.entry.slice(-1) != this.word.slice(-1)) return false
@@ -60,6 +76,9 @@ export default {
       if (this.is_attempt && this.word != this.entry) {
         this.ever_wrong = true
       }
+    },
+    'status'(to) {
+      this.$emit('update', this, this.status)
     }
   }
 }
@@ -93,7 +112,7 @@ export default {
           </div>
         </div>
 
-        <img src="@/assets/check-0.png" v-if="word == entry" class='check' />
+        <img src="@/assets/check-0.png" v-if="correct" class='check' />
         <img src="@/assets/restrict-1.png" v-else-if="is_attempt" class='check' />
         <div v-else class='check' />
 

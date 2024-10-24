@@ -5,6 +5,7 @@ import {Tabs, Tab} from 'vue3-tabs-component';
 import Settings from './components/settings.vue'
 import Test from './components/test.vue'
 import Landing from './components/landing.vue'
+import Status from './components/status.vue'
 
 // import 'xp.css'
 import '98.css'
@@ -12,7 +13,10 @@ import '98.css'
 export default {
   components: {
     Tabs, Tab,
-    Settings, Test, Landing
+    Settings, Test, Landing, Status
+  },
+  created() {
+    window.app = this
   }
 }
 
@@ -33,6 +37,9 @@ export default {
         </tab>
         <tab name="Cards">
           <Test class="window"/>
+        </tab>
+        <tab name="Summary">
+          <Status class="window"/>
         </tab>
       </tabs>
     </div>
@@ -57,6 +64,10 @@ export default {
 .title-bar, .window, button, input, label, option, select, table, textarea, ul.tree-view {
     font-family: "MS Sans Serif", Arial, sans-serif;
     font-size: 14px;
+}
+
+h3 {
+    margin: 0 0;
 }
 
 /*Tab component*/
