@@ -68,6 +68,7 @@ export default {
       synth.speak(this.utterance)
     },
     speakAnswer() {
+      if (!this.Store.setting_count_hint_as_wrong) this.ever_wrong = true
       synth.speak(this.utteranceAnswer)
     }
   },
@@ -79,6 +80,9 @@ export default {
     },
     'status'(to) {
       this.$emit('update', this, this.status)
+    },
+    'show'(to) {
+      if (!this.Store.setting_count_hint_as_wrong && to) this.ever_wrong = true
     }
   }
 }

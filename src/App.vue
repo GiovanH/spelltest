@@ -35,7 +35,7 @@ export default {
         <tab name="Settings">
           <Settings class="window"/>
         </tab>
-        <tab name="Cards">
+        <tab name="Test">
           <Test class="window"/>
         </tab>
         <tab name="Summary">

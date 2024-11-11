@@ -61,7 +61,7 @@ export default {
   <section>
     <div class="status-bar">
       <p class="status-bar-field">
-        <button @click="resetAndLoadAndShuffle" tabindex="-1">Reset &amp; Shuffle</button>
+        <button @click="resetAndLoadAndShuffle" tabindex="-1" :class="{urgent: listDirty}">Reset &amp; Shuffle</button>
       </p>
     </div>
 
@@ -99,5 +99,9 @@ export default {
   max-width: 100%;
   flex-wrap: wrap;
   flex-grow: 1;
+}
+button.urgent {
+  font-weight: 700;
+  border: 2px solid yellow;
 }
 </style>

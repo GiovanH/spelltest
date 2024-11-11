@@ -42,7 +42,9 @@ app.mixin({
   // plugins: [ AsyncComputed ],
   data() {
     return {
-      Store: useStorage('store', {}),
+      Store: useStorage('store', {
+        setting_count_hint_as_wrong: true
+      }),
     }
   },
   methods: {
